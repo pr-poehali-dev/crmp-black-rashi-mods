@@ -215,6 +215,7 @@ function GeneratorSection() {
   const [description, setDescription] = useState("");
   const [selectedFormats, setSelectedFormats] = useState<string[]>(["lua"]);
   const [isGenerating, setIsGenerating] = useState(false);
+
   const [progress, setProgress] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [activeFormat, setActiveFormat] = useState("lua");
@@ -240,7 +241,7 @@ function GeneratorSection() {
       "Обработка описания...",
       "Генерация структуры кода...",
       "Компиляция модулей...",
-      `Экспорт: ${selectedFormats.join(", ")}`,
+      `Экспорт: ${(selectedFormats || ["lua"]).join(", ")}`,
       "Финальная проверка синтаксиса...",
       "МОД ГОТОВ ✓",
     ];
@@ -398,7 +399,7 @@ function GeneratorSection() {
                 <button
                   key={fmt.id}
                   onClick={() => toggleFormat(fmt.id)}
-                  className={`format-tag ${selectedFormats.includes(fmt.id) ? "active" : ""}`}
+                  className={`format-tag ${(selectedFormats || []).includes(fmt.id) ? "active" : ""}`}
                 >
                   {fmt.label}
                   <span className="ml-1 opacity-50" style={{ fontSize: "0.65rem" }}>{fmt.desc}</span>
@@ -497,7 +498,7 @@ function GeneratorSection() {
                 style={{ borderColor: "rgba(0,255,136,0.12)", background: "rgba(0,255,136,0.025)" }}
               >
                 <div className="flex gap-2">
-                  {selectedFormats.map((fmt) => (
+                  {(selectedFormats || []).map((fmt) => (
                     <button
                       key={fmt}
                       onClick={() => setActiveFormat(fmt)}
@@ -553,7 +554,7 @@ function GeneratorSection() {
                 style={{ borderColor: "rgba(0,255,136,0.08)" }}
               >
                 <span style={{ color: "rgba(255,255,255,0.25)", fontFamily: "'Share Tech Mono', monospace", fontSize: "0.7rem" }}>
-                  {selectedFormats.length} формат(а) готово
+                  {(selectedFormats || []).length} формат(а) готово
                 </span>
                 <button
                   className="text-xs flex items-center gap-2 px-4 py-2 rounded font-rajdhani"
@@ -564,7 +565,7 @@ function GeneratorSection() {
                     fontFamily: "Rajdhani, sans-serif",
                     letterSpacing: "0.08em",
                   }}
-                  onClick={() => selectedFormats.forEach((f) => downloadFile(f))}
+                  onClick={() => (selectedFormats || []).forEach((f) => downloadFile(f))}
                 >
                   <Icon name="PackageOpen" size={13} />
                   СКАЧАТЬ ВСЕ
