@@ -263,7 +263,7 @@ function GeneratorSection() {
         setTimeout(() => {
           setIsGenerating(false);
           setShowResult(true);
-          setActiveFormat(selectedFormats[0] || "lua");
+          setActiveFormat((selectedFormats ?? ["lua"])[0] || "lua");
         }, 400);
       }
     }, 280);
