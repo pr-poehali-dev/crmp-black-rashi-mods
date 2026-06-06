@@ -221,9 +221,10 @@ function GeneratorSection() {
   const [generatedLog, setGeneratedLog] = useState<string[]>([]);
 
   const toggleFormat = (fmt: string) => {
-    setSelectedFormats((prev) =>
-      prev.includes(fmt) ? prev.filter((f) => f !== fmt) : [...prev, fmt]
-    );
+    setSelectedFormats((prev) => {
+      const next = prev.includes(fmt) ? prev.filter((f) => f !== fmt) : [...prev, fmt];
+      return next.length === 0 ? prev : next;
+    });
   };
 
   const startGeneration = () => {
